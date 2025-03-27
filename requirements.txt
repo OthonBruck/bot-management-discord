@@ -1,2 +1,4 @@
 discord.py
 python-decouple
+pymongo[srv]==3.11
+motor
