@@ -19,7 +19,7 @@ class TimeManagement(commands.Cog):
             await register_entry(member.id, member.guild.id)
             return
 
-        if after.channel == None == after.afk == True:
+        if after.channel == None or after.afk == True:
             print("after")
             await register_exit(member.id, member.guild.id)
             return
