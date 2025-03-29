@@ -15,12 +15,10 @@ class TimeManagement(commands.Cog):
         if before.channel == after.channel:
             return
         if before.channel == None or before.afk == True:
-            print("before")
             await register_entry(member.id, member.guild.id)
             return
 
         if after.channel == None or after.afk == True:
-            print("after")
             await register_exit(member.id, member.guild.id)
             return
 
