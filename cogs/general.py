@@ -1,21 +1,28 @@
 import discord
 from discord.ext import commands
+from database.voice_activity import register_entry, register_exit
 
-class General(commands.Cog):
+class TimeManagement(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print("General")
+        print("TimeManagement")
 
-    @commands.command()
-    async def ping(self, ctx):
-        await ctx.send("🏓 Pong!")
+    @commands.Cog.listener()
+    async def on_voice_state_update(self, member, before, after):
+        if before.channel == after.channel:
+            return
+        if before.channel == None or before.afk == True:
+            print("before")
+            await register_entry(member.id, member.guild.id)
+            return
 
-    @commands.command()
-    async def say(self, ctx):
-        await ctx.send("pong")
+        if after.channel == None == after.afk == True:
+            print("after")
+            await register_exit(member.id, member.guild.id)
+            return
 
 async def setup(bot):
-    await bot.add_cog(General(bot))
+    await bot.add_cog(TimeManagement(bot))
